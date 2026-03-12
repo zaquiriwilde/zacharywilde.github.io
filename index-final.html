@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Zachary Wilde] — Nonprofit Regional Theatre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f4efe6;
+    --cream-dark: #ede6d8;
+    --white: #fdfaf6;
+    --ink: #16120e;
+    --gold: #b8924a;
+    --gold-light: #d4a85a;
+    --gray: #7a7068;
+    --rule: #ddd5c4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── SHARED ─────────────────────────────── */
+  .s-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .s-label::after {
+    content: ''; display: block;
+    width: 28px; height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 0.92rem;
+    color: var(--gray);
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  section {
+    padding: 56px 28px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── LANDING ────────────────────────────── */
+  .landing {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    gap: 28px;
+  }
+
+  .landing-hint {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+  }
+
+  /* ── CARD ───────────────────────────────── */
+  .card {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1.75 / 1;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.04),
+      0 8px 24px rgba(0,0,0,0.08),
+      0 24px 48px rgba(0,0,0,0.05);
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    padding: 26px 28px;
+    opacity: 0;
+    animation: riseUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+
+  .card::before,
+  .card::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border-color: rgba(184,146,74,0.3);
+    border-style: solid;
+    pointer-events: none;
+  }
+  .card::before { top: 11px; left: 11px; border-width: 1px 0 0 1px; }
+  .card::after  { bottom: 11px; right: 11px; border-width: 0 1px 1px 0; }
+
+  /* card top */
+  .card-top { display: flex; flex-direction: column; justify-content: flex-start; gap: 3px; }
+
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 5vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    text-decoration: none;
+    display: block;
+  }
+  .card-name em { font-style: italic; color: var(--gold); }
+  .card-name:hover em { color: var(--gold-light); }
+
+  .card-roles {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+    line-height: 1.7;
+  }
+  .card-roles:hover { color: var(--gold); }
+
+  .card-sector {
+    font-size: 0.53rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    font-weight: 400;
+  }
+
+  /* card middle */
+  .card-rule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0;
+  }
+  .card-rule-line { flex: 1; height: 1px; background: var(--rule); }
+  .card-rule-dot  { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: 0.45; }
+
+  /* card bottom */
+  .card-bottom { display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+
+  .card-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    width: fit-content;
+  }
+  .card-link-label {
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    min-width: 34px;
+    flex-shrink: 0;
+  }
+  .card-link-value {
+    font-size: 0.7rem;
+    color: var(--ink);
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+  .card-link:hover .card-link-value { color: var(--gold); }
+
+  .card-tagline {
+    position: absolute;
+    bottom: 18px; right: 26px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.62rem;
+    color: rgba(184,146,74,0.38);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .card-tagline:hover { color: var(--gold); }
+
+  /* ── SCROLL HINT ────────────────────────── */
+  .scroll-hint {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rule);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.6s forwards;
+  }
+  .scroll-line { width: 1px; height: 26px; background: linear-gradient(to bottom, var(--rule), transparent); }
+
+  /* ── ORIGIN STORY ───────────────────────── */
+  .origin {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 56px 28px;
+    border-top: none;
+  }
+  .origin .s-label { color: var(--gold); }
+  .origin h2 { color: var(--cream); margin-bottom: 24px; }
+  .origin p { color: #a09080; }
+
+  .origin-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 28px;
+  }
+  .origin-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #2a221a;
+    align-items: flex-start;
+  }
+  .origin-step:last-child { border-bottom: none; }
+  .origin-step-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--gold);
+    opacity: 0.4;
+    flex-shrink: 0;
+    min-width: 22px;
+    line-height: 1.3;
+  }
+  .origin-step strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+  .origin-step span {
+    font-size: 0.8rem;
+    color: #908070;
+    line-height: 1.6;
+  }
+
+  /* ── HEADSHOT SECTION ───────────────────── */
+  .headshot-section {
+    padding: 56px 28px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .headshot-image {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid var(--rule);
+  }
+
+  /* ── WHAT I BRING ───────────────────────── */
+  .bring-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 28px;
+  }
+  .bring-card {
+    background: var(--white);
+    padding: 22px 18px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.25s;
+  }
+  .bring-card:hover { border-color: var(--gold); }
+  .bring-card-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .bring-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .bring-card ul li {
+    font-size: 0.78rem;
+    color: var(--gray);
+    line-height: 1.7;
+    padding-left: 10px;
+    position: relative;
+  }
+  .bring-card ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  /* ── BELIEFS ────────────────────────────── */
+  .believe-list { margin-top: 24px; }
+  .believe {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 14px;
+  }
+  .believe:last-child { border-bottom: none; }
+  .bm {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    padding-top: 1px;
+    min-width: 14px;
+  }
+  .believe strong { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
+  .believe span { font-size: 0.82rem; color: var(--gray); line-height: 1.65; }
+
+  /* ── LEADERSHIP CARDS ───────────────────── */
+  .leadership-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .leadership-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .leadership-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .leadership-image {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gold);
+    opacity: 0.6;
+    overflow: hidden;
+  }
+
+  .leadership-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .leadership-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .leadership-role {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    display: block;
+  }
+
+  .leadership-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .leadership-desc {
+    font-size: 0.8rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ── PERFORMANCE ARCHIVE ────────────────── */
+  .archive-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    margin-top: 24px;
+  }
+
+  .archive-cell {
+    aspect-ratio: 1;
+    background: var(--cream-dark);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .archive-cell.wide {
+    grid-column: span 2;
+    aspect-ratio: 2 / 1;
+  }
+
+  .archive-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── PORTFOLIO ──────────────────────────── */
+  .portfolio-list { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
+
+  .portfolio-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 20px;
+    background: var(--white);
+    text-decoration: none;
+    color: var(--ink);
+    border-left: 3px solid transparent;
+    transition: border-color 0.25s, background 0.2s;
+  }
+  .portfolio-item:hover { border-color: var(--gold); background: white; }
+
+  .portfolio-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+  .portfolio-body { flex: 1; }
+  .portfolio-title {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 2px;
+    display: block;
+  }
+  .portfolio-desc {
+    font-size: 0.75rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .portfolio-arrow { color: var(--rule); font-size: 0.8rem; flex-shrink: 0; }
+
+  /* ── AI STANCE ──────────────────────────── */
+  .ai-section {
+    background: var(--ink);
+    padding: 56px 28px;
+    border-top: 1px solid #2a221a;
+  }
+  .ai-section .s-label { color: var(--gold); }
+  .ai-section h2 { color: var(--cream); }
+  .ai-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: #c8bfb4;
+    border-left: 2px solid var(--gold);
+    padding-left: 18px;
+    margin: 20px 0 28px;
+  }
+  .ai-pt {
+    padding: 16px 0;
+    border-bottom: 1px solid #2a221a;
+    display: flex;
+    gap: 14px;
+  }
+  .ai-pt:last-child { border-bottom: none; padding-bottom: 0; }
+  .ai-arr { color: var(--gold); font-size: 0.75rem; flex-shrink: 0; padding-top: 3px; }
+  .ai-pt strong { display: block; font-size: 0.88rem; font-weight: 400; color: var(--cream); margin-bottom: 3px; }
+  .ai-pt span { font-size: 0.78rem; color: #908070; line-height: 1.6; }
+
+  /* ── LOOKING FOR ────────────────────────── */
+  .look-list { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
+  .look-card {
+    background: var(--white);
+    padding: 22px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.25s;
+  }
+  .look-card:hover { border-color: var(--gold); }
+  .look-icon { font-size: 1.2rem; margin-bottom: 8px; display: block; }
+  .look-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; margin-bottom: 6px; }
+  .look-card p { font-size: 0.81rem; margin-bottom: 0; }
+
+  /* ── WHY REGIONAL ───────────────────────── */
+  .why-section {
+    background: var(--cream-dark);
+    padding: 56px 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .why-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-top: 20px;
+  }
+  .why-quote em { font-style: italic; color: var(--gold); }
+
+  /* ── CONTACT ────────────────────────────── */
+  .contact-block { margin-top: 28px; border: 1px solid var(--rule); }
+  .c-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s;
+  }
+  .c-row:last-child { border-bottom: none; }
+  .c-row:hover { background: white; }
+  .c-label { font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); min-width: 44px; }
+  .c-val { font-size: 0.86rem; font-weight: 300; flex: 1; }
+  .c-arr { color: var(--rule); font-size: 0.8rem; }
+
+  .final-tag {
+    margin-top: 40px;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--gold);
+    opacity: 0.55;
+  }
+
+  /* ── ANIMATIONS ─────────────────────────── */
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── LANDING ── -->
+<div class="landing">
+  <div class="landing-hint">Tap any field to explore</div>
+
+  <div class="card">
+    <div class="card-top">
+      <a class="card-name" href="#about">[Zachary <em>Wilde]</em></a>
+      <a class="card-roles" href="#about">Artistic Director  ·  Managing Director</a>
+      <a class="card-sector" href="#why">Nonprofit Regional Theatre</a>
+    </div>
+
+    <div class="card-rule">
+      <div class="card-rule-line"></div>
+      <div class="card-rule-dot"></div>
+      <div class="card-rule-line"></div>
+    </div>
+
+    <div class="card-bottom">
+      <a class="card-link" href="mailto:zacharyawilde@gmail.com">
+        <span class="card-link-label">Email</span>
+        <span class="card-link-value">zacharyawilde@gmail.com</span>
+      </a>
+      <a class="card-link" href="https://zacharywilde.github.io/" target="_blank">
+        <span class="card-link-label">Web</span>
+        <span class="card-link-value">zacharywilde.github.io</span>
+      </a>
+      <a class="card-link" href="tel:6157329348">
+        <span class="card-link-label">Phone</span>
+        <span class="card-link-value">615.732.9348</span>
+      </a>
+    </div>
+
+    <a class="card-tagline" href="#innovation">Imagination to innovation.</a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</div>
+
+<!-- ── ORIGIN STORY ── -->
+<div class="origin" id="about">
+  <div class="s-label">Origin Story</div>
+  <img src="images/headshot.JPG" alt="Zachary Wilde" class="headshot-image" style="margin: 20px auto; display: block; max-width: 280px;">
+  <h2>Raised in theatre,<br>Committed to theatre.</h2>
+  <p>The arts have enriched my life, strengthening my desire to grow & innovate.
+  For me, steps have been deliberately chosen to go deeper, not broader.</p>
+  <div class="origin-steps">
+    <div class="origin-step">
+      <div class="origin-step-n">i.</div>
+      <div>
+        <strong>Children's Theatre</strong>
+        <span>Where it all started! A stage, an audience, and an early realization of the importance of diversity.</span>
+      </div>
+    </div>
+    <div class="origin-step">
+      <div class="origin-step-n">ii.</div>
+      <div>
+        <strong>Community Theatre</strong>
+        <span>Where I learned the importance of community, taking risks, and making an impact.</span>
+      </div>
+    </div>
+    <div class="origin-step">
+      <div class="origin-step-n">iii.</div>
+      <div>
+        <strong>Musical Theatre Performance BFA</strong>
+        <span>Formal training in voice, acting, dance, and music direction.</span>
+      </div>
+    </div>
+    <div class="origin-step">
+      <div class="origin-step-n">iv.</div>
+      <div>
+        <strong>Educator & Event Producer</strong>
+        <span>Educator, Director, Music Director, Event Coordinator. Truly nothing gives me more joy than giving back to others.</span>
+      </div>
+    </div>
+    <div class="origin-step">
+      <div class="origin-step-n">v.</div>
+      <div>
+        <strong>Arts Leadership & Cultural Management M.A.</strong>
+        <span>Placemaking, community engagement, nonprofit management, budgeting, grant writing, arts policy. The tools required of a well-rounded leader in the arts.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WHAT I BRING ── -->
+<section id="skills">
+  <div class="s-label">What I Bring</div>
+  <h2>Skills across<br>every room.</h2>
+  <div class="bring-grid">
+    <div class="bring-card">
+      <span class="bring-card-label">Artistic</span>
+      <ul>
+        <li>Season planning</li>
+        <li>Casting</li>
+        <li>Music direction</li>
+        <li>Merchandise development</li>
+        <li>Innovative methods/Puppetry</li>
+      </ul>
+    </div>
+    <div class="bring-card">
+      <span class="bring-card-label">Cultural</span>
+      <ul>
+        <li>Placemaking</li>
+        <li>Community engagement</li>
+        <li>Equity programming</li>
+        <li>Accessibility design</li>
+      </ul>
+    </div>
+    <div class="bring-card">
+      <span class="bring-card-label">Production</span>
+      <ul>
+        <li>Full production mgmt</li>
+        <li>Rehearsal direction</li>
+        <li>Technical coordination</li>
+        <li>Event production</li>
+      </ul>
+    </div>
+    <div class="bring-card">
+      <span class="bring-card-label">Administrative</span>
+      <ul>
+        <li>Budget management</li>
+        <li>Grant writing</li>
+        <li>Board relations</li>
+        <li>Strategic planning</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── BELIEFS ── -->
+<section id="beliefs">
+  <div class="s-label">What I Believe</div>
+  <h2>Convictions that<br>shape how I lead.</h2>
+  <div class="believe-list">
+    <div class="believe">
+      <span class="bm">i.</span>
+      <div>
+        <strong>Theatre education leads to a fulfilling life.</strong>
+        <span>Its an investment in empathy, imagination, and human connection.<br> It strengthens bonds, builds futures, and gives you a place to spread your wings.</span>
+      </div>
+    </div>
+    <div class="believe">
+      <span class="bm">ii.</span>
+      <div>
+        <strong>Artists are meant to be fought for.</strong>
+        <span>I know the vulnerability, the uncertainty, and the joy that comes from each unique experience as an artist. <br>That experience strengthens your commitment to the artists in your care.</span>
+      </div>
+    </div>
+    <div class="believe">
+      <span class="bm">iii.</span>
+      <div>
+        <strong>The business side is an artistic act.</strong>
+        <span>Budgets, boards, and fundraising are how you protect your mission. Guaranteeing a sustainable future and donor trust is just a bonus!  </span>
+      </div>
+    </div>
+    <div class="believe">
+      <span class="bm">iv.</span>
+      <div>
+        <strong>Diverse voices are essential.</strong>
+        <span>Not only in representation on stage, but in making decisions for your organization. This is especially important to me as a leader. </span>
+      </div>
+    </div>
+    <div class="believe">
+      <span class="bm">v.</span>
+      <div>
+        <strong>Development requires relationships.</strong>
+        <span>Donors and funders give to people and communities they trust. Building that trust is a core leadership responsibility and priviledge!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LEADERSHIP IN ACTION ── -->
+<section id="leadership">
+  <div class="s-label">Leadership in Action</div>
+  <h2>On Stage &amp;<br>Behind It.</h2>
+  <p>Demonstrated experience in artistic direction, music leadership, education, community engagement, and event production.</p>
+  
+  <div class="leadership-grid">
+    
+    <div class="leadership-card">
+      <div class="leadership-image">Summer Theatre Camp
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Artistic Leadership</span>
+        <h3 class="leadership-title">Summer Theatre Camp Director</h3>
+        <p class="leadership-desc">Directed 4 musicals (Alice in Wonderland, Grease, Aladdin Jr., Through the Decades). Full program management: curriculum design, course materials, teaching resources, student support, and family coordination. All productions: sold-out free community shows.</p>
+      </div>
+    </div>
+
+    <div class="leadership-card">
+      <div class="leadership-image">School of the Arts
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Artistic Leadership</span>
+        <h3 class="leadership-title">School of the Arts Director</h3>
+        <p class="leadership-desc">Directed 4 productions (Alice in Wonderland, Grease, Aladdin Jr., Through the Decades). Comprehensive program management: curriculum development, learning materials, teaching support, student mentorship, and stakeholder relations. All productions: sold-out free community shows.</p>
+      </div>
+    </div>
+
+    <div class="leadership-card">
+      <div class="leadership-image">Event Production
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Event Leadership</span>
+        <h3 class="leadership-title">Event Planning & Execution</h3>
+        <p class="leadership-desc">Full execution of Hocus Pocus Viewing Party (October 2025) and significant planning/setup/performance role in 2025 Fundraising Gala. Experience in logistics, timeline management, stakeholder coordination, and on-site execution.</p>
+      </div>
+    </div>
+
+    <div class="leadership-card">
+      <div class="leadership-image">Community Infrastructure
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Systems Thinking</span>
+        <h3 class="leadership-title">Community Infrastructure Advocate</h3>
+        <p class="leadership-desc">Developed policy proposal for county public performance space access. Demonstrates strategic vision beyond production: institutional planning, equity infrastructure, and systems-level impact for regional arts organizations.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PERFORMANCE ARCHIVE ── -->
+<section id="performance">
+  <div class="s-label">Performance Archive</div>
+  <h2>Moments from<br>the stage.</h2>
+  <p>Selected performance moments across diverse roles and productions.</p>
+  
+  <div class="archive-gallery">
+    <div class="archive-cell">
+      <img src="images/perf-01.JPG" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-04.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-07.JPG" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-08.JPG" alt="Performance archive">
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--gray);">
+    <a href="resume.pdf" style="color: var(--gold); text-decoration: none;">Download Theatre Resume</a>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="s-label">Portfolio</div>
+  <h2>The work,<br>documented.</h2>
+  <p>Selected samples from graduate study and professional practice.</p>
+  <div class="portfolio-list">
+
+    <a class="portfolio-item" href="#" target="_blank">
+      <span class="portfolio-icon">📋</span>
+      <div class="portfolio-body">
+        <span class="portfolio-title">Community Event Production Plan</span>
+        <span class="portfolio-desc">Full planning document for a community fundraiser event — logistics, timeline, stakeholder communication.</span>
+      </div>
+      <span class="portfolio-arrow">↗</span>
+    </a>
+
+    <a class="portfolio-item" href="#" target="_blank">
+      <span class="portfolio-icon">📝</span>
+      <div class="portfolio-body">
+        <span class="portfolio-title">Sample Grant Proposal</span>
+        <span class="portfolio-desc">Graduate grant writing sample demonstrating NEA-aligned narrative structure and nonprofit framing.</span>
+      </div>
+      <span class="portfolio-arrow">↗</span>
+    </a>
+
+    <a class="portfolio-item" href="#" target="_blank">
+      <span class="portfolio-icon">📊</span>
+      <div class="portfolio-body">
+        <span class="portfolio-title">Production Budget Case Study</span>
+        <span class="portfolio-desc">Full production budget with line-item breakdown and resource allocation rationale.</span>
+      </div>
+      <span class="portfolio-arrow">↗</span>
+    </a>
+
+    <a class="portfolio-item" href="#" target="_blank">
+      <span class="portfolio-icon">🎭</span>
+      <div class="portfolio-body">
+        <span class="portfolio-title">Season Proposal Concept</span>
+        <span class="portfolio-desc">Three-show season proposal demonstrating thematic cohesion, community relevance, and budgetary awareness.</span>
+      </div>
+      <span class="portfolio-arrow">↗</span>
+    </a>
+
+    <a class="portfolio-item" href="#" target="_blank">
+      <span class="portfolio-icon">📐</span>
+      <div class="portfolio-body">
+        <span class="portfolio-title">Directing Concept</span>
+        <span class="portfolio-desc">Visual and conceptual approach to a production — design aesthetic, casting philosophy, dramaturgical framing.</span>
+      </div>
+      <span class="portfolio-arrow">↗</span>
+    </a>
+
+    <a class="portfolio-item" href="cv.pdf" target="_blank">
+      <span class="portfolio-icon">📄</span>
+      <div class="portfolio-body">
+        <span class="portfolio-title">Full CV</span>
+        <span class="portfolio-desc">Complete curriculum vitae including production history, education, and professional affiliations.</span>
+      </div>
+      <span class="portfolio-arrow">↓</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── AI / INNOVATION ── -->
+<div class="ai-section" id="innovation">
+  <div class="s-label">On Innovation</div>
+  <h2>My Stance<br>on AI in Theatre</h2>
+  <div class="ai-quote">"AI is a tool, not a replacement. Its value depends entirely on the intention and humanity behind it."</div>
+  <div class="ai-pt">
+    <span class="ai-arr">→</span>
+    <div><strong>Excited, not naive</strong><span>AI can deepen storytelling and create performance moments that weren't previously possible. That's worth exploring seriously.</span></div>
+  </div>
+  <div class="ai-pt">
+    <span class="ai-arr">→</span>
+    <div><strong>Human first, always</strong><span>The artist is the point. Technology serves the work — never the other way around.</span></div>
+  </div>
+  <div class="ai-pt">
+    <span class="ai-arr">→</span>
+    <div><strong>The environmental cost is real</strong><span>Training one AI model can consume 700,000+ liters of water. Innovation without environmental accountability isn't leadership — it's novelty.</span></div>
+  </div>
+  <div class="ai-pt">
+    <span class="ai-arr">→</span>
+    <div><strong>Revenue innovation</strong><span>AI-generated scenic design reproduced as miniature merch. New revenue streams that connect audiences to the work beyond the performance itself.</span></div>
+  </div>
+  <div class="ai-pt">
+    <span class="ai-arr">→</span>
+    <div><strong>My approach</strong><span>Experiment boldly. Implement thoughtfully. Always ask: who benefits, and who bears the cost?</span></div>
+  </div>
+</div>
+
+<!-- ── LOOKING FOR ── -->
+<section id="looking">
+  <div class="s-label">What I'm Looking For</div>
+  <h2>The right fit<br>looks like this.</h2>
+  <div class="look-list">
+    <div class="look-card">
+      <span class="look-icon">🎭</span>
+      <h3>Serious Artistic Ambition</h3>
+      <p>A company that takes creative risk seriously — in what it puts on stage, not just its mission statement.</p>
+    </div>
+    <div class="look-card">
+      <span class="look-icon">🤝</span>
+      <h3>Trust Between AD & MD</h3>
+      <p>I thrive where artistic and managing leadership are genuine partners — not parallel tracks that rarely meet.</p>
+    </div>
+    <div class="look-card">
+      <span class="look-icon">🌱</span>
+      <h3>Deep Community Roots</h3>
+      <p>An organization that treats its city as a collaborator and measures success beyond the box office.</p>
+    </div>
+    <div class="look-card">
+      <span class="look-icon">💡</span>
+      <h3>A Board That Gets It</h3>
+      <p>Where board members understand that risk is part of the work and there's appetite for bold, considered innovation.</p>
+    </div>
+    <div class="look-card">
+      <span class="look-icon">🏛️</span>
+      <h3>Nonprofit, Always</h3>
+      <p>Mission-driven, community-accountable, grant-eligible. This is the only model I've ever wanted to work within.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY REGIONAL ── -->
+<div class="why-section" id="why">
+  <div class="s-label">Why Regional Theatre</div>
+  <div class="why-quote">
+    "I didn't choose regional theatre.<br><br>
+    I grew up in it.<br><br>
+    <em>My first stage was a children's theatre. My second was a community theatre. By the time I found my way to regional work, I understood something that can't really be taught — that theatre doesn't exist in spite of its community. It exists because of it.</em><br><br>
+    I've never had an interest in any other world. The regional theatre is where I believe the most honest, most necessary work gets made.<br><br>
+    Regional theatre isn't where I'm starting. It's where I belong."
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="s-label">Let's Talk</div>
+  <h2>Find out if we're<br>the right fit.</h2>
+  <p>I'd love a real conversation — not just an exchange of documents.</p>
+  <div class="contact-block">
+    <a href="mailto:zacharyawilde@gmail.com" class="c-row">
+      <span class="c-label">Email</span>
+      <span class="c-val">zacharyawilde@gmail.com</span>
+      <span class="c-arr">↗</span>
+    </a>
+    <a href="https://zacharywilde.github.io/" class="c-row" target="_blank">
+      <span class="c-label">Web</span>
+      <span class="c-val">zacharywilde.github.io</span>
+      <span class="c-arr">↗</span>
+    </a>
+    <a href="tel:6157329348" class="c-row">
+      <span class="c-label">Phone</span>
+      <span class="c-val">615.732.9348</span>
+      <span class="c-arr">↗</span>
+    </a>
+    <a href="cv.pdf" class="c-row">
+      <span class="c-label">CV</span>
+      <span class="c-val">Download Full CV</span>
+      <span class="c-arr">↓</span>
+    </a>
+  </div>
+  <div class="final-tag">From technology to tangibility.</div>
+</section>
+
+</body>
+</html>
