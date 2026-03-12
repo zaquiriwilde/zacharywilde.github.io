@@ -206,6 +206,30 @@
   }
   .card-tagline:hover { color: var(--gold); }
 
+  /* ── CARD WITH HEADSHOT ─────────────────── */
+  .card.has-image {
+    grid-template-rows: auto 1fr auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .card-content {
+    flex: 1;
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   /* ── SCROLL HINT ────────────────────────── */
   .scroll-hint {
     font-size: 0.55rem;
@@ -331,24 +355,117 @@
   .believe strong { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
   .believe span { font-size: 0.82rem; color: var(--gray); line-height: 1.65; }
 
-  /* ── WORK / PHOTOS ──────────────────────── */
-  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 24px; }
-  .photo-cell {
-    aspect-ratio: 1;
-    background: var(--cream-dark);
+  /* ── LEADERSHIP CARDS ───────────────────── */
+  .leadership-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .leadership-card {
+    background: var(--white);
     border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .leadership-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .leadership-image {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     color: var(--gold);
     opacity: 0.6;
     overflow: hidden;
   }
-  .photo-cell.wide { grid-column: span 2; aspect-ratio: 2/1; }
-  .photo-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .leadership-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .leadership-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .leadership-role {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    display: block;
+  }
+
+  .leadership-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .leadership-desc {
+    font-size: 0.8rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ── PERFORMANCE ARCHIVE ────────────────── */
+  .archive-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    margin-top: 24px;
+  }
+
+  .archive-cell {
+    aspect-ratio: 1;
+    background: var(--cream-dark);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .archive-cell.wide {
+    grid-column: span 2;
+    aspect-ratio: 2 / 1;
+  }
+
+  .archive-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .archive-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    color: var(--gold);
+    opacity: 0.5;
+  }
 
   /* ── PORTFOLIO ──────────────────────────── */
   .portfolio-list { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
@@ -489,32 +606,35 @@
 <div class="landing">
   <div class="landing-hint">Tap any field to explore</div>
 
-  <div class="card">
-    <div class="card-top">
-      <a class="card-name" href="#about">[Zachary <em>Wilde]</em></a>
-      <a class="card-roles" href="#about">Artistic Director  ·  Managing Director</a>
-      <a class="card-sector" href="#why">Nonprofit Regional Theatre</a>
-    </div>
+  <div class="card has-image">
+    <img src="images/headshot.jpg" alt="Zachary Wilde" class="card-image">
+    <div class="card-content">
+      <div class="card-top">
+        <a class="card-name" href="#about">[Zachary <em>Wilde]</em></a>
+        <a class="card-roles" href="#about">Artistic Director  ·  Managing Director</a>
+        <a class="card-sector" href="#why">Nonprofit Regional Theatre</a>
+      </div>
 
-    <div class="card-rule">
-      <div class="card-rule-line"></div>
-      <div class="card-rule-dot"></div>
-      <div class="card-rule-line"></div>
-    </div>
+      <div class="card-rule">
+        <div class="card-rule-line"></div>
+        <div class="card-rule-dot"></div>
+        <div class="card-rule-line"></div>
+      </div>
 
-    <div class="card-bottom">
-      <a class="card-link" href="mailto:[zacharyawilde@gmail.com]">
-        <span class="card-link-label">Email</span>
-        <span class="card-link-value">[zacharyawilde@gmail.com]</span>
-      </a>
-      <a class="card-link" href="https://[https://zacharywilde.github.io/]" target="_blank">
-        <span class="card-link-label">Web</span>
-        <span class="card-link-value">[zacharywilde.github.io/]</span>
-      </a>
-      <a class="card-link" href="[6157329348]" target="_blank">
-        <span class="card-link-label">Phone</span>
-        <span class="card-link-value">[615.732.9348]</span>
-      </a>
+      <div class="card-bottom">
+        <a class="card-link" href="mailto:[zacharyawilde@gmail.com]">
+          <span class="card-link-label">Email</span>
+          <span class="card-link-value">[zacharyawilde@gmail.com]</span>
+        </a>
+        <a class="card-link" href="https://[https://zacharywilde.github.io/]" target="_blank">
+          <span class="card-link-label">Web</span>
+          <span class="card-link-value">[zacharywilde.github.io/]</span>
+        </a>
+        <a class="card-link" href="[6157329348]" target="_blank">
+          <span class="card-link-label">Phone</span>
+          <span class="card-link-value">[615.732.9348]</span>
+        </a>
+      </div>
     </div>
 
     <a class="card-tagline" href="#innovation">Imagination to innovation.</a>
@@ -530,7 +650,7 @@
 <div class="origin" id="about">
   <div class="s-label">Origin Story</div>
   <h2>Raised in theatre,<br>Committed to theatre.</h2>
-  <p>The arts have enriched my life, strengthening my desire to grow & innovate. <br>
+  <p>The arts have enriched my life, strengthening my desire to grow & innovate.
   For me, steps have been deliberately chosen to go deeper, not broader.</p>
   <div class="origin-steps">
     <div class="origin-step">
@@ -558,7 +678,7 @@
       <div class="origin-step-n">iv.</div>
       <div>
         <strong>Educator & Event Producer</strong>
-        <span>Taught, directed, and music directed the School of the Arts and the Roxy Summer Theatre programs. Truly nothing gives me more joy than giving back to others.</span>
+        <span>Educator, Director, Music Director, Event Coordinator. Truly nothing gives me more joy than giving back to others.</span>
       </div>
     </div>
     <div class="origin-step">
@@ -659,17 +779,105 @@
   </div>
 </section>
 
-<!-- ── WORK ── -->
-<section id="work">
-  <div class="s-label">Selected Work</div>
+<!-- ── LEADERSHIP IN ACTION ── -->
+<section id="leadership">
+  <div class="s-label">Leadership in Action</div>
   <h2>On Stage &amp;<br>Behind It.</h2>
-  <p>[ Brief intro to your production and directing history. ]</p>
-  <div class="photo-grid">
-    <div class="photo-cell wide">[ Feature production photo ]</div>
-    <div class="photo-cell">[ Directing ]</div>
-    <div class="photo-cell">[ Performance ]</div>
-    <div class="photo-cell">[ Teaching ]</div>
-    <div class="photo-cell">[ Community ]</div>
+  <p>Demonstrated experience in artistic direction, music leadership, education, community engagement, and event production.</p>
+  
+  <div class="leadership-grid">
+    
+    <div class="leadership-card">
+      <div class="leadership-image">
+        <img src="images/summer-camp.jpg" alt="Summer Theatre Camp">
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Artistic Leadership</span>
+        <h3 class="leadership-title">Summer Theatre Camp Director</h3>
+        <p class="leadership-desc">Directed 4 musicals (Alice in Wonderland, Grease, Aladdin Jr., Through the Decades). Full program management: curriculum design, course materials, teaching resources, student support, and family coordination. All productions: sold-out free community shows.</p>
+      </div>
+    </div>
+
+    <div class="leadership-card">
+      <div class="leadership-image">
+        <img src="images/school-of-arts.jpg" alt="School of the Arts">
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Artistic Leadership</span>
+        <h3 class="leadership-title">School of the Arts Director</h3>
+        <p class="leadership-desc">Directed 4 productions (Alice in Wonderland, Grease, Aladdin Jr., Through the Decades). Comprehensive program management: curriculum development, learning materials, teaching support, student mentorship, and stakeholder relations. All productions: sold-out free community shows.</p>
+      </div>
+    </div>
+
+    <div class="leadership-card">
+      <div class="leadership-image">
+        <img src="images/event-planning.jpg" alt="Event Production">
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Event Leadership</span>
+        <h3 class="leadership-title">Event Planning & Execution</h3>
+        <p class="leadership-desc">Full execution of Hocus Pocus Viewing Party (October 2025) and significant planning/setup/performance role in 2025 Fundraising Gala. Experience in logistics, timeline management, stakeholder coordination, and on-site execution.</p>
+      </div>
+    </div>
+
+    <div class="leadership-card">
+      <div class="leadership-image">
+        <img src="images/community-advocate.jpg" alt="Policy & Infrastructure">
+      </div>
+      <div class="leadership-content">
+        <span class="leadership-role">Systems Thinking</span>
+        <h3 class="leadership-title">Community Infrastructure Advocate</h3>
+        <p class="leadership-desc">Developed policy proposal for county public performance space access. Demonstrates strategic vision beyond production: institutional planning, equity infrastructure, and systems-level impact for regional arts organizations.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PERFORMANCE ARCHIVE ── -->
+<section id="performance">
+  <div class="s-label">Performance Archive</div>
+  <h2>30+ Productions.<br>One Passion.</h2>
+  <p>A gallery of performance moments spanning 30 years across diverse roles and productions.</p>
+  
+  <div class="archive-gallery">
+    <div class="archive-cell wide">
+      <img src="images/perf-01.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-02.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-03.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-04.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-05.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-06.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-07.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-08.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-09.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-10.jpg" alt="Performance archive">
+    </div>
+    <div class="archive-cell">
+      <img src="images/perf-11.jpg" alt="Performance archive">
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--gray);">
+    <a href="resume.pdf" style="color: var(--gold); text-decoration: none;">Download Theatre Resume</a> · <a href="#" style="color: var(--gray); text-decoration: none;">Full Gallery</a>
   </div>
 </section>
 
@@ -725,7 +933,7 @@
       <span class="portfolio-arrow">↗</span>
     </a>
 
-    <a class="portfolio-item" href="#" target="_blank">
+    <a class="portfolio-item" href="/cv.pdf" target="_blank">
       <span class="portfolio-icon">📄</span>
       <div class="portfolio-body">
         <span class="portfolio-title">Full CV</span>
